@@ -24,7 +24,7 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		/// <param name="dim2">The length of another of the three item dimensions.</param>
 		/// <param name="dim3">The length of the other of the three item dimensions.</param>
 		/// <param name="itemQuantity">The item quantity.</param>
-		public Item(int id, decimal dim1, decimal dim2, decimal dim3, int quantity)
+		public Item(string id, decimal dim1, decimal dim2, decimal dim3, int quantity)
 		{
 			this.ID = id;
 			this.Dim1 = dim1;
@@ -45,7 +45,7 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		/// The item ID.
 		/// </value>
 		[DataMember]
-		public int ID { get; set; }
+		public string ID { get; set; }
 
 		/// <summary>
 		/// Gets or sets a value indicating whether this item has already been packed.

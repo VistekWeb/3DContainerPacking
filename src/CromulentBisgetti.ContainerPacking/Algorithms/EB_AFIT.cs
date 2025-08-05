@@ -533,7 +533,7 @@ namespace CromulentBisgetti.ContainerPacking.Algorithms
 
 			// The original code uses 1-based indexing everywhere. This fake entry is added to the beginning
 			// of the list to make that possible.
-			itemsToPack.Add(new Item(0, 0, 0, 0, 0));
+			itemsToPack.Add(new Item("0", 0, 0, 0, 0));
 
 			layers = new List<Layer>();
 			itemsToPackCount = 0;
@@ -549,7 +549,7 @@ namespace CromulentBisgetti.ContainerPacking.Algorithms
 				itemsToPackCount += item.Quantity;
 			}
 
-			itemsToPack.Add(new Item(0, 0, 0, 0, 0));
+			itemsToPack.Add(new Item("0", 0, 0, 0, 0));
 
 			totalContainerVolume = container.Length * container.Height * container.Width;
 			totalItemVolume = 0.0M;
