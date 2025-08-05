@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <RepositoryUrl>https://github.com/VistekWeb/3DContainerPacking</RepositoryUrl>
+  </PropertyGroup>
+  
 </Project>
