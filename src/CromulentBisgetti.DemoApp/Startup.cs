@@ -32,11 +32,13 @@ namespace CromulentBisgetti.DemoApp
             });
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                .AddJsonOptions(options =>
-                {
-                    options.SerializerSettings.ContractResolver = null;
-                });
+            services.AddMvc(x =>
+            {
+                x.EnableEndpointRouting = false;
+            }).AddNewtonsoftJson(x =>
+            {
+                x.SerializerSettings.ContractResolver = null;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
