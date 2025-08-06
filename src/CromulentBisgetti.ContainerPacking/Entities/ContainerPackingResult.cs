@@ -31,7 +31,7 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		/// The container ID.
 		/// </value>
 		[DataMember]
-		public int ContainerID { get; set; }
+		public string ContainerID { get; set; }
 
 		[DataMember]
 		public List<AlgorithmPackingResult> AlgorithmPackingResults { get; set; }

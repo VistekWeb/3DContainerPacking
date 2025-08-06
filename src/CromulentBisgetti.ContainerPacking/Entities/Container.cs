@@ -26,7 +26,7 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		/// <param name="length">The container length.</param>
 		/// <param name="width">The container width.</param>
 		/// <param name="height">The container height.</param>
-		public Container(int id, decimal length, decimal width, decimal height)
+		public Container(string id, decimal length, decimal width, decimal height)
 		{
 			this.ID = id;
 			this.Length = length;
@@ -44,7 +44,7 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		/// <value>
 		/// The container ID.
 		/// </value>
-		public int ID { get; set; }
+		public string ID { get; set; }
 
 		/// <summary>
 		/// Gets or sets the container length.

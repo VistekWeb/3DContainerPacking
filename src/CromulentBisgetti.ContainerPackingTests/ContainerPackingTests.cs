@@ -60,7 +60,7 @@ namespace CromulentBisgetti.ContainerPackingTests
 						}
 
 						List<Container> containers = new List<Container>();
-						containers.Add(new Container(0, Convert.ToDecimal(containerDims[0]), Convert.ToDecimal(containerDims[1]), Convert.ToDecimal(containerDims[2])));
+						containers.Add(new Container("0", Convert.ToDecimal(containerDims[0]), Convert.ToDecimal(containerDims[1]), Convert.ToDecimal(containerDims[2])));
 
 						List<ContainerPackingResult> result = PackingService.Pack(containers, itemsToPack, new List<int> { (int)AlgorithmType.EB_AFIT });
 						
