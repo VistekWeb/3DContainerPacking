@@ -47,8 +47,13 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 
 			Weight = weight;
 			UnitCost = unitCost;
+			
 			MaterialBuffer = materialBuffer;
-			IsPadded = materialBuffer > 0;
+
+			if (MaterialBuffer > 0m)
+			{
+				PadMeasurements();
+			}
 		}
 
 		#endregion Constructors
@@ -192,35 +197,35 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		#endregion Public Properties
 		
 		
-		public void PadMeasurements(decimal paddingInches)
+		public void PadMeasurements()
 		{
 			if (IsPadded)
 			{
 				return;
 			}
 
-			Dim1 += paddingInches;
-			Dim2 += paddingInches;
-			Dim3 += paddingInches;
+			Dim1 += MaterialBuffer;
+			Dim2 += MaterialBuffer;
+			Dim3 += MaterialBuffer;
 			volume = Dim1 * Dim2 * Dim3;
 
 			IsPadded = true;
 		}
 
-		public void UnpadMeasurements(decimal paddingInches)
+		public void UnpadMeasurements()
 		{
 			if (!IsPadded)
 			{
 				return;
 			}
 
-			Dim1 -= paddingInches;
-			Dim2 -= paddingInches;
-			Dim3 -= paddingInches;
+			Dim1 -= MaterialBuffer;
+			Dim2 -= MaterialBuffer;
+			Dim3 -= MaterialBuffer;
 
-			CoordX += paddingInches / 2;
-			CoordY += paddingInches / 2;
-			CoordZ += paddingInches / 2;
+			CoordX += MaterialBuffer / 2;
+			CoordY += MaterialBuffer / 2;
+			CoordZ += MaterialBuffer / 2;
 			
 			IsPadded = false;
 		}
