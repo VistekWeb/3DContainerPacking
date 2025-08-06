@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
 using System.IO;
 using System.Collections.Generic;
+using System.Linq;
 using CromulentBisgetti.ContainerPacking;
 using CromulentBisgetti.ContainerPacking.Entities;
 using CromulentBisgetti.ContainerPacking.Algorithms;
@@ -45,7 +46,16 @@ namespace CromulentBisgetti.ContainerPackingTests
 						{
 							string[] itemArray = reader.ReadLine().Split(' ');
 
-							Item item = new Item("0", Convert.ToDecimal(itemArray[1]), Convert.ToDecimal(itemArray[3]), Convert.ToDecimal(itemArray[5]), Convert.ToInt32(itemArray[7]));
+							Item item = new Item(
+								"0", 
+								Convert.ToDecimal(itemArray[1]), 
+								Convert.ToDecimal(itemArray[3]), 
+								Convert.ToDecimal(itemArray[5]), 
+								Convert.ToInt32(itemArray[7]),
+								7,
+								7,
+								0
+							);
 							itemsToPack.Add(item);
 						}
 
@@ -68,6 +78,13 @@ namespace CromulentBisgetti.ContainerPackingTests
 
 						// Assert that the packed item volume percentage is equal to the published reference result.
 						Assert.AreEqual(result[0].AlgorithmPackingResults[0].PercentItemVolumePacked, Convert.ToDecimal(testResults[4]));
+						
+						foreach (var packedItem in result[0].AlgorithmPackingResults[0].PackedItems)
+						{
+							Assert.AreEqual(7, packedItem.Weight);
+							Assert.AreEqual(7, packedItem.UnitCost);
+							Assert.AreEqual(0, packedItem.MaterialBuffer);
+						}
 
 						counter++;
 					}

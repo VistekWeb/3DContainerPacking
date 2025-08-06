@@ -23,8 +23,20 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		/// <param name="dim1">The length of one of the three item dimensions.</param>
 		/// <param name="dim2">The length of another of the three item dimensions.</param>
 		/// <param name="dim3">The length of the other of the three item dimensions.</param>
-		/// <param name="itemQuantity">The item quantity.</param>
-		public Item(string id, decimal dim1, decimal dim2, decimal dim3, int quantity)
+		/// <param name="quantity">The quantity of the item.</param>
+		/// <param name="weight">The weight of the item (not used in calculations).</param>
+		/// <param name="unitCost">The unit cost of the item (not used in calculations).</param>
+		/// <param name="materialBuffer">The amount of buffer to apply to each dimension for packing materials.</param>
+		public Item(
+			string id, 
+			decimal dim1, 
+			decimal dim2, 
+			decimal dim3, 
+			int quantity,
+			decimal weight,
+			decimal unitCost,
+			decimal materialBuffer
+		)
 		{
 			this.ID = id;
 			this.Dim1 = dim1;
@@ -32,12 +44,29 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 			this.Dim3 = dim3;
 			this.volume = dim1 * dim2 * dim3;
 			this.Quantity = quantity;
+
+			Weight = weight;
+			UnitCost = unitCost;
+			MaterialBuffer = materialBuffer;
+			IsPadded = materialBuffer > 0;
 		}
 
 		#endregion Constructors
 
 		#region Public Properties
 
+		[DataMember]
+		public decimal Weight { get; set; }
+		
+		[DataMember]
+		public decimal UnitCost { get; set; }
+		
+		[DataMember]
+		public decimal MaterialBuffer { get; set; }
+		
+		[DataMember]
+		public bool IsPadded { get; set; }
+		
 		/// <summary>
 		/// Gets or sets the item ID.
 		/// </summary>
@@ -161,5 +190,39 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		}
 
 		#endregion Public Properties
+		
+		
+		public void PadMeasurements(decimal paddingInches)
+		{
+			if (IsPadded)
+			{
+				return;
+			}
+
+			Dim1 += paddingInches;
+			Dim2 += paddingInches;
+			Dim3 += paddingInches;
+			volume = Dim1 * Dim2 * Dim3;
+
+			IsPadded = true;
+		}
+
+		public void UnpadMeasurements(decimal paddingInches)
+		{
+			if (!IsPadded)
+			{
+				return;
+			}
+
+			Dim1 -= paddingInches;
+			Dim2 -= paddingInches;
+			Dim3 -= paddingInches;
+
+			CoordX += paddingInches / 2;
+			CoordY += paddingInches / 2;
+			CoordZ += paddingInches / 2;
+			
+			IsPadded = false;
+		}
 	}
 }
