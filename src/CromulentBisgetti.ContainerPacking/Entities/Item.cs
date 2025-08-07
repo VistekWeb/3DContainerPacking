@@ -16,6 +16,11 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 
 		#region Constructors
 
+		public Item()
+		{
+			
+		}
+		
 		/// <summary>
 		/// Initializes a new instance of the Item class.
 		/// </summary>
