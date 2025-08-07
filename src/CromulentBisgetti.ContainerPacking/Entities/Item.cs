@@ -54,10 +54,10 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 
 			Weight = weight;
 			UnitCost = unitCost;
-			
 			MaterialBuffer = materialBuffer;
+			IsPadded = alreadyPadded;
 
-			if (!alreadyPadded && MaterialBuffer > 0m)
+			if (MaterialBuffer > 0m)
 			{
 				PadMeasurements();
 			}
