@@ -550,7 +550,8 @@ namespace CromulentBisgetti.ContainerPacking.Algorithms
 						item.Quantity,
 						item.Weight,
 						item.UnitCost,
-						item.MaterialBuffer
+						item.MaterialBuffer,
+						item.IsPadded
 					);
 
 					itemsToPack.Add(newItem);

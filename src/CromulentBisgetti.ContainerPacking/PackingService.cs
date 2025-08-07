@@ -48,7 +48,8 @@ namespace CromulentBisgetti.ContainerPacking
 							item.Quantity,
 							item.Weight,
 							item.UnitCost,
-							item.MaterialBuffer
+							item.MaterialBuffer,
+							item.IsPadded
 						));
 					});
 

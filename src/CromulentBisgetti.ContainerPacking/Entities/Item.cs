@@ -27,6 +27,7 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		/// <param name="weight">The weight of the item (not used in calculations).</param>
 		/// <param name="unitCost">The unit cost of the item (not used in calculations).</param>
 		/// <param name="materialBuffer">The amount of buffer to apply to each dimension for packing materials.</param>
+		/// <param name="alreadyPadded">If dimensions are already padded, and so should not be automatically padded.</param>
 		public Item(
 			string id, 
 			decimal dim1, 
@@ -35,7 +36,8 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 			int quantity,
 			decimal weight,
 			decimal unitCost,
-			decimal materialBuffer
+			decimal materialBuffer,
+			bool alreadyPadded = false
 		)
 		{
 			this.ID = id;
@@ -50,7 +52,7 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 			
 			MaterialBuffer = materialBuffer;
 
-			if (MaterialBuffer > 0m)
+			if (!alreadyPadded && MaterialBuffer > 0m)
 			{
 				PadMeasurements();
 			}
