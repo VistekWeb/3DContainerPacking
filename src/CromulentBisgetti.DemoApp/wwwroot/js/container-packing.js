@@ -61,8 +61,6 @@ function render() {
 
 var ViewModel = function () {
 	var self = this;
-
-	self.ItemCounter = 0;
 	self.ContainerCounter = 0;
 
 	self.ItemsToRender = ko.observableArray([]);
@@ -119,7 +117,7 @@ var ViewModel = function () {
 	};
 
 	self.AddNewItemToPack = function () {
-		self.NewItemToPack.ID(self.ItemCounter++);
+		self.NewItemToPack.ID(crypto.randomUUID());
 		self.ItemsToPack.push(ko.mapping.fromJS(ko.mapping.toJS(self.NewItemToPack)));
 		self.NewItemToPack.Name('');
 		self.NewItemToPack.Length('');

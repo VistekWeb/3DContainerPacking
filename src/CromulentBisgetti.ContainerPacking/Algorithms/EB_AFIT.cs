@@ -342,7 +342,7 @@ namespace CromulentBisgetti.ContainerPacking.Algorithms
 						layerinlayer = 0;
 						layerDone = false;
 
-						PackLayer();
+						 PackLayer();
 
 						packedy = packedy + layerThickness;
 						remainpy = py - packedy;

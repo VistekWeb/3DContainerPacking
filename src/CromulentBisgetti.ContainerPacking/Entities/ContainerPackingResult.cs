@@ -10,7 +10,6 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 	/// <summary>
 	/// The container packing result.
 	/// </summary>
-	[DataContract]
 	public class ContainerPackingResult
 	{
 		#region Constructors
@@ -30,10 +29,8 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		/// <value>
 		/// The container ID.
 		/// </value>
-		[DataMember]
 		public string ContainerID { get; set; }
-
-		[DataMember]
+		
 		public List<AlgorithmPackingResult> AlgorithmPackingResults { get; set; }
 
 		#endregion Public Properties

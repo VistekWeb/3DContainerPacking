@@ -3,7 +3,6 @@ using System.Runtime.Serialization;
 
 namespace CromulentBisgetti.ContainerPacking.Entities
 {
-	[DataContract]
 	public class AlgorithmPackingResult
 	{
 		#region Constructors
@@ -17,11 +16,9 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		#endregion Constructors
 
 		#region Public Properties
-
-		[DataMember]
+		
 		public int AlgorithmID { get; set; }
-
-		[DataMember]
+		
 		public string AlgorithmName { get; set; }
 
 		/// <summary>
@@ -30,7 +27,6 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		/// <value>
 		/// True if all the items are packed in the container; otherwise, false.
 		/// </value>
-		[DataMember]
 		public bool IsCompletePack { get; set; }
 
 		/// <summary>
@@ -39,7 +35,6 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		/// <value>
 		/// The list of packed items.
 		/// </value>
-		[DataMember]
 		public List<Item> PackedItems { get; set; }
 
 		/// <summary>
@@ -48,7 +43,6 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		/// <value>
 		/// The elapsed pack time in milliseconds.
 		/// </value>
-		[DataMember]
 		public long PackTimeInMilliseconds { get; set; }
 
 		/// <summary>
@@ -57,7 +51,6 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		/// <value>
 		/// The percent of container volume packed.
 		/// </value>
-		[DataMember]
 		public decimal PercentContainerVolumePacked { get; set; }
 
 		/// <summary>
@@ -66,7 +59,6 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		/// <value>
 		/// The percent of item volume packed.
 		/// </value>
-		[DataMember]
 		public decimal PercentItemVolumePacked { get; set; }
 
 		/// <summary>
@@ -75,7 +67,6 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		/// <value>
 		/// The list of unpacked items.
 		/// </value>
-		[DataMember]
 		public List<Item> UnpackedItems { get; set; }
 
 		#endregion Public Properties
