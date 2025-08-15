@@ -79,6 +79,105 @@ var ViewModel = function () {
 	self.NewItemToPack = ko.mapping.fromJS(new ItemToPack());
 	self.NewContainer = ko.mapping.fromJS(new Container());
 
+    self.JsonInput = ko.observable('');
+
+    self.ShowPasteJsonModal = function() {
+        $('.paste-json-modal').modal('show');
+    };
+
+    self.ProcessPastedJson = function () {
+        try {
+            var jsonData = JSON.parse(self.JsonInput());
+
+            // Reset current data
+            self.Containers([]);
+            self.ItemsToPack([]);
+            self.AlgorithmsToUse([]);
+
+            // Add placeholder algorithm entry
+            self.AlgorithmsToUse.push({ AlgorithmID: 1, AlgorithmName: 'Pre-packed (JSON)' });
+
+            var itemTypeCounter = 0;
+            var itemIdCounter = 0;
+            var globalItemTypes = {}; // prevent duplicate identical item types
+
+            jsonData.forEach((containerData, containerIndex) => {
+                var packedItems = [];
+                var itemTypesMap = {};
+
+                (containerData.itemCoordinates || []).forEach(item => {
+                    var itemKey = item.length + '_' + item.width + '_' + item.height;
+
+                    if (!globalItemTypes[itemKey]) {
+                        globalItemTypes[itemKey] = {
+                            ID: itemTypeCounter++,
+                            Name: 'Item ' + itemTypeCounter,
+                            Length: item.length,
+                            Width: item.width,
+                            Height: item.height,
+                            Quantity: 0
+                        };
+                        self.ItemsToPack.push(ko.mapping.fromJS(globalItemTypes[itemKey]));
+                    }
+
+                    globalItemTypes[itemKey].Quantity++;
+
+                    packedItems.push({
+                        ID: itemIdCounter++,
+                        IsPacked: true,
+                        PackDimX: item.length,
+                        PackDimY: item.height,
+                        PackDimZ: item.width,
+                        CoordX: item.x,
+                        CoordY: item.z || 0,
+                        CoordZ: item.y || 0
+                    });
+                });
+
+                // Re-sync updated quantities back into observable items
+                self.ItemsToPack().forEach(obsItem => {
+                    var key = obsItem.Length() + '_' + obsItem.Width() + '_' + obsItem.Height();
+                    if (globalItemTypes[key]) {
+                        obsItem.Quantity(globalItemTypes[key].Quantity);
+                    }
+                });
+
+                var containerVolume = containerData.boxLength * containerData.boxWidth * containerData.boxHeight;
+                var totalItemVolume = packedItems.reduce((v, p) => v + (p.PackDimX * p.PackDimY * p.PackDimZ), 0);
+                var percentUsed = Math.round((totalItemVolume / containerVolume) * 100);
+
+                var algorithmPackingResults = [{
+                    AlgorithmID: 1,
+                    AlgorithmName: 'Pre-packed (JSON)',
+                    IsCompletePack: true,
+                    PackedItems: packedItems,         // KEEP AS PLAIN ARRAY
+                    UnpackedItems: [],
+                    PackTimeInMilliseconds: 0,
+                    PercentContainerVolumePacked: percentUsed
+                }];
+
+                // Map only the container shell so AlgorithmPackingResults stays an observableArray of PLAIN objects
+                var containerVm = ko.mapping.fromJS({
+                    ID: containerIndex,
+                    Name: 'Container ' + (containerIndex + 1),
+                    Length: containerData.boxLength,
+                    Width: containerData.boxWidth,
+                    Height: containerData.boxHeight,
+                    AlgorithmPackingResults: [] // init empty observableArray
+                });
+
+                // Assign plain algorithm results (matching shape from API path)
+                containerVm.AlgorithmPackingResults(algorithmPackingResults);
+
+                self.Containers.push(containerVm);
+            });
+
+            self.JsonInput('');
+        } catch (e) {
+            alert('Invalid JSON format: ' + e.message);
+        }
+    };
+    
 	self.GenerateItemsToPack = function () {
 		self.ItemsToPack([]);
 		self.ItemsToPack.push(ko.mapping.fromJS({ ID: 1000, Name: 'Item1', Length: 5, Width: 4, Height: 2, Quantity: 1 }));

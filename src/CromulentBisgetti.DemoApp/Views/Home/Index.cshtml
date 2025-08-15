@@ -151,6 +151,7 @@
                         <h3 class="panel-title pull-left">Containers</h3>
                         <div class="pull-right">
                             <button class="btn btn-default btn-sm" data-bind="click: GenerateContainers">Generate</button>
+                            <button class="btn btn-info btn-sm" data-bind="click: ShowPasteJsonModal">Paste JSON</button>
                             <button class="btn btn-primary btn-sm" data-bind="click: PackContainers">Pack Em Up</button>
                         </div>
                         <div class="clearfix"></div>
@@ -244,16 +245,34 @@
         </div>
     </div>
 
-    <div class="modal fade render-modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content" style="margin-bottom: 30px;">
-                <div id="drawing-container" style="margin-top: 30px; text-align: center;"></div>
-                <div class="text-center">
-                    <button class="btn btn-default" data-bind="click: UnpackItemInRender, enable: AreItemsPacked()"><span class="glyphicon glyphicon-chevron-left"></span></button>
-                    <button class="btn btn-default" data-bind="click: PackItemInRender, disable: AreAllItemsPacked()"><span class="glyphicon glyphicon-chevron-right"></span></button>
-                </div>
+<div class="modal fade render-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" style="margin-bottom: 30px;">
+            <div id="drawing-container" style="margin-top: 30px; text-align: center;"></div>
+            <div class="text-center">
+                <button class="btn btn-default" data-bind="click: UnpackItemInRender, enable: AreItemsPacked()"><span class="glyphicon glyphicon-chevron-left"></span></button>
+                <button class="btn btn-default" data-bind="click: PackItemInRender, disable: AreAllItemsPacked()"><span class="glyphicon glyphicon-chevron-right"></span></button>
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade paste-json-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Paste JSON</h4>
+            </div>
+            <div class="modal-body">
+                <textarea class="form-control" rows="10" data-bind="value: JsonInput" placeholder="Paste your JSON here..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-bind="click: ProcessPastedJson" data-dismiss="modal">Process</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
